@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HuaRongDaoView extends View {
-    private static final int CELL_SIZE = 100; // 每个格子的大小
+    private int cellSize = 0; // 动态方块大小
     private static final int PADDING = 10; // 内边距
     
     private List<Block> blocks = new ArrayList<>();
@@ -92,10 +92,10 @@ public class HuaRongDaoView extends View {
         // 绘制垂直线
         for (int i = 0; i <= width; i++) {
             canvas.drawLine(
-                PADDING + i * CELL_SIZE, 
-                PADDING, 
-                PADDING + i * CELL_SIZE, 
-                PADDING + height * CELL_SIZE, 
+                PADDING + i * cellSize,
+                PADDING,
+                PADDING + i * cellSize,
+                PADDING + height * cellSize,
                 gridPaint
             );
         }
@@ -103,10 +103,10 @@ public class HuaRongDaoView extends View {
         // 绘制水平线
         for (int i = 0; i <= height; i++) {
             canvas.drawLine(
-                PADDING, 
-                PADDING + i * CELL_SIZE, 
-                PADDING + width * CELL_SIZE, 
-                PADDING + i * CELL_SIZE, 
+                PADDING,
+                PADDING + i * cellSize,
+                PADDING + width * cellSize,
+                PADDING + i * cellSize,
                 gridPaint
             );
         }
@@ -119,10 +119,10 @@ public class HuaRongDaoView extends View {
             blockPaint.setColor(color);
             
             // 绘制方块
-            float left = PADDING + block.getCol() * CELL_SIZE;
-            float top = PADDING + block.getRow() * CELL_SIZE;
-            float right = left + block.getWidth() * CELL_SIZE;
-            float bottom = top + block.getHeight() * CELL_SIZE;
+            float left = PADDING + block.getCol() * cellSize;
+            float top = PADDING + block.getRow() * cellSize;
+            float right = left + block.getWidth() * cellSize;
+            float bottom = top + block.getHeight() * cellSize;
             
             canvas.drawRect(left, top, right, bottom, blockPaint);
             
@@ -136,7 +136,7 @@ public class HuaRongDaoView extends View {
             // 绘制方块文本
             String text = getBlockText(block.getType());
             float textX = left + (right - left) / 2;
-            float textY = top + (bottom - top) / 2 + 16; // 16是为了让文本居中
+            float textY = top + (bottom - top) / 2 + cellSize * 0.16f; // 居中
             canvas.drawText(text, textX, textY, textPaint);
         }
     }
@@ -146,10 +146,10 @@ public class HuaRongDaoView extends View {
         int height = currentLevel.getGridHeight();
         
         // 出口位置在底部中央
-        float left = PADDING + (width/2 - 1) * CELL_SIZE;
-        float top = PADDING + (height - 2) * CELL_SIZE;
-        float right = left + 2 * CELL_SIZE;
-        float bottom = top + 2 * CELL_SIZE;
+        float left = PADDING + (width/2 - 1) * cellSize;
+        float top = PADDING + (height - 2) * cellSize;
+        float right = left + 2 * cellSize;
+        float bottom = top + 2 * cellSize;
         
         blockPaint.setColor(Color.YELLOW & 0x77FFFFFF); // 半透明黄色
         canvas.drawRect(left, top, right, bottom, blockPaint);
@@ -219,10 +219,10 @@ public class HuaRongDaoView extends View {
         // 检查是否点击了某个方块
         for (int i = blocks.size() - 1; i >= 0; i--) {
             Block block = blocks.get(i);
-            float left = PADDING + block.getCol() * CELL_SIZE;
-            float top = PADDING + block.getRow() * CELL_SIZE;
-            float right = left + block.getWidth() * CELL_SIZE;
-            float bottom = top + block.getHeight() * CELL_SIZE;
+            float left = PADDING + block.getCol() * cellSize;
+            float top = PADDING + block.getRow() * cellSize;
+            float right = left + block.getWidth() * cellSize;
+            float bottom = top + block.getHeight() * cellSize;
             
             if (x >= left && x <= right && y >= top && y <= bottom) {
                 return block;
@@ -293,16 +293,18 @@ public class HuaRongDaoView extends View {
             newCol < 0 || newCol + block.getWidth() > currentLevel.getGridWidth()) {
             return false;
         }
-        
-        // 检查是否与其他方块冲突
-        for (Block other : blocks) {
-            if (other == block) continue;
-            
-            if (isOverlapping(block, other, newRow, newCol)) {
-                return false;
+        // 检查目标区域每一格是否都空闲
+        for (int r = newRow; r < newRow + block.getHeight(); r++) {
+            for (int c = newCol; c < newCol + block.getWidth(); c++) {
+                for (Block other : blocks) {
+                    if (other == block) continue;
+                    if (r >= other.getRow() && r < other.getRow() + other.getHeight() &&
+                        c >= other.getCol() && c < other.getCol() + other.getWidth()) {
+                        return false;
+                    }
+                }
             }
         }
-        
         return true;
     }
     
@@ -334,6 +336,16 @@ public class HuaRongDaoView extends View {
             }
         } catch (Exception e) {
             // 忽略音效异常
+        }
+    }
+    
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (currentLevel != null) {
+            int gridWidth = currentLevel.getGridWidth();
+            int gridHeight = currentLevel.getGridHeight();
+            cellSize = Math.min((w - 2 * PADDING) / gridWidth, (h - 2 * PADDING) / gridHeight);
         }
     }
     

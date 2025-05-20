@@ -1,97 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="12dp">
 
-    <!-- 上方游戏区域 -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="#f0f0f0">
-
-        <com.example.huarongdao.HuaRongDaoView
-            android:id="@+id/gameView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"/>
-
-        <TextView
-            android:id="@+id/movesTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:padding="8dp"
-            android:text="步数: 0"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-    </RelativeLayout>
-
-    <!-- 分隔线 -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#999999"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- 下方代码输入区域 -->
+    <!-- 整体内容垂直居中 -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:id="@+id/mainContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- 顶部：输入指令面板 -->
         <EditText
             android:id="@+id/codeEditText"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_height="293dp"
             android:background="#202020"
+            android:fontFamily="monospace"
+            android:gravity="top|start"
+            android:hint="在此输入代码..."
+            android:maxLines="10"
+            android:minLines="5"
+            android:overScrollMode="always"
+            android:padding="16dp"
+            android:scrollbars="vertical"
             android:textColor="#ffffff"
             android:textSize="16sp"
-            android:padding="12dp"
-            android:gravity="top"
-            android:hint="在此输入代码..."
-            android:fontFamily="monospace"
-            android:minLines="6"
-            android:scrollbars="vertical"/>
+            android:lineSpacingExtra="6dp"/>
 
+        <!-- 中部：按钮区 -->
         <LinearLayout
+            android:id="@+id/buttonPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
             <Button
                 android:id="@+id/resetButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
+                style="@style/CommonButton"
                 android:text="重置关卡"
-                android:layout_marginRight="8dp"/>
+                android:textSize="15sp"
+                android:layout_marginEnd="8dp"/>
 
             <Button
                 android:id="@+id/executeButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
+                style="@style/CommonButton"
                 android:text="执行代码"
-                android:background="#4CAF50"
-                android:textColor="#ffffff"
-                android:layout_marginRight="8dp"/>
+                android:textSize="15sp"
+                android:layout_marginEnd="8dp"/>
 
             <Button
                 android:id="@+id/hintButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
+                style="@style/CommonButton"
                 android:text="提示"
-                android:background="#FF9800"
-                android:textColor="#ffffff"/>
+                android:textSize="15sp"/>
         </LinearLayout>
+
+        <!-- 底部：华容道棋盘，正方形最大化显示 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+            <com.example.huarongdao.HuaRongDaoView
+                android:id="@+id/gameView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/movesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:padding="8dp"
+                android:text="步数: 0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="#66000000"
+                android:textColor="#fff"/>
+        </FrameLayout>
     </LinearLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
