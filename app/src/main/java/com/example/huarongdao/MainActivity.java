@@ -2,6 +2,8 @@ package com.example.huarongdao;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +22,25 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
     private TextView movesTextView;
     private CodeInterpreter codeInterpreter;
     private Level currentLevel;
+    private MediaPlayer bgmPlayer;
+    private MediaPlayer succeedPlayer;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // 首次进入主界面弹窗
+        SharedPreferences prefs = getSharedPreferences("huarongdao_prefs", MODE_PRIVATE);
+        boolean firstEnterGame = prefs.getBoolean("first_enter_game", true);
+        if (firstEnterGame) {
+            new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.welcome_title))
+                .setMessage(getString(R.string.welcome_message))
+                .setPositiveButton(getString(R.string.got_it), null)
+                .show();
+            prefs.edit().putBoolean("first_enter_game", false).apply();
+        }
         
         // 初始化视图组件
         gameView = findViewById(R.id.gameView);
@@ -65,6 +81,25 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
                 showHint();
             }
         });
+        
+        // 启动背景音乐
+        bgmPlayer = MediaPlayer.create(this, R.raw.backgroud_music);
+        bgmPlayer.setLooping(true);
+        bgmPlayer.start();
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (bgmPlayer != null) {
+            bgmPlayer.stop();
+            bgmPlayer.release();
+            bgmPlayer = null;
+        }
+        if (succeedPlayer != null) {
+            succeedPlayer.release();
+            succeedPlayer = null;
+        }
     }
     
     private void loadLevel(int levelId) {
@@ -172,14 +207,48 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
     
     @Override
     public void onGameCompleted(int moves) {
+        // 停止背景音乐，播放通关音效
+        if (bgmPlayer != null) {
+            bgmPlayer.stop();
+        }
+        succeedPlayer = MediaPlayer.create(this, R.raw.succeed);
+        succeedPlayer.setOnCompletionListener(mp -> {
+            mp.release();
+            succeedPlayer = null;
+        });
+        succeedPlayer.start();
         // 显示完成对话框
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("恭喜完成!")
                .setMessage("你用了 " + moves + " 步完成此关卡")
                .setPositiveButton("下一关", (dialog, which) -> {
+                   // 暂停通关音效，重新播放背景音乐
+                   if (succeedPlayer != null && succeedPlayer.isPlaying()) {
+                       succeedPlayer.stop();
+                       succeedPlayer.release();
+                       succeedPlayer = null;
+                   }
+                   if (bgmPlayer != null) {
+                       bgmPlayer.release();
+                   }
+                   bgmPlayer = MediaPlayer.create(this, R.raw.backgroud_music);
+                   bgmPlayer.setLooping(true);
+                   bgmPlayer.start();
                    loadLevel(currentLevel.getId() + 1);
                })
                .setNegativeButton("再玩一次", (dialog, which) -> {
+                   // 暂停通关音效，重新播放背景音乐
+                   if (succeedPlayer != null && succeedPlayer.isPlaying()) {
+                       succeedPlayer.stop();
+                       succeedPlayer.release();
+                       succeedPlayer = null;
+                   }
+                   if (bgmPlayer != null) {
+                       bgmPlayer.release();
+                   }
+                   bgmPlayer = MediaPlayer.create(this, R.raw.backgroud_music);
+                   bgmPlayer.setLooping(true);
+                   bgmPlayer.start();
                    loadLevel(currentLevel.getId());
                })
                .show();

@@ -329,7 +329,7 @@ public class HuaRongDaoView extends View {
     // 播放方块移动音效
     private void playMoveSound() {
         try {
-            android.media.MediaPlayer player = android.media.MediaPlayer.create(getContext(), R.raw.move_sound);
+            android.media.MediaPlayer player = android.media.MediaPlayer.create(getContext(), R.raw.quickslide);
             if (player != null) {
                 player.setOnCompletionListener(mp -> mp.release());
                 player.start();

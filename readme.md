@@ -60,5 +60,5 @@
   - 在`res/values/strings.xml`中定义文本（如"重置"、"步数："）。  ✅（已完成，所有界面文本已规范进strings.xml）
 
 - **音效与动画**  
-  - 使用`MediaPlayer`播放移动音效（`res/raw/move_sound.mp3`）。  ✅（已完成，移动方块时播放音效，动画可后续扩展）
+  - 使用`MediaPlayer`播放移动音效（`res/raw/quickslide.wav`）。  ✅（已完成，移动方块时播放音效，动画可后续扩展）
   - 添加方块移动动画（如`ObjectAnimator`

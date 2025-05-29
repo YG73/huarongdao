@@ -14,4 +14,8 @@
     <string name="level_complete_msg">你用了 %1$d 步完成此关卡</string>
     <string name="next_level">下一关</string>
     <string name="retry">再玩一次</string>
+    <string name="welcome_title">华容道</string>
+    <string name="welcome_message">玩法简介：\n. 目标是将绿色function大方块移动到下方出口。\n. 拖动或滑动方块移动，不能重叠或越界。\n. 可用提示、撤销等功能辅助通关。\n. 祝你玩得开心！</string>
+    <string name="start_game">开始</string>
+    <string name="exit">退出</string>
 </resources>
