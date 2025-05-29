@@ -71,6 +71,16 @@
                 style="@style/CommonButton"
                 android:text="提示"
                 android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/rankingButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="44dp"
+                style="@style/CommonButton"
+                android:text="榜单"
+                android:textSize="15sp"
+                android:layout_marginStart="8dp"/>
         </LinearLayout>
 
         <!-- 底部：华容道棋盘，正方形最大化显示 -->

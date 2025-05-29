@@ -2,6 +2,7 @@ package com.example.huarongdao;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
         Button executeButton = findViewById(R.id.executeButton);
         Button resetButton = findViewById(R.id.resetButton);
         Button hintButton = findViewById(R.id.hintButton);
+        Button rankingButton = findViewById(R.id.rankingButton);
         
         // 设置游戏监听器
         gameView.setGameListener(this);
@@ -79,6 +81,14 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
             @Override
             public void onClick(View v) {
                 showHint();
+            }
+        });
+        
+        rankingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RankingActivity.class);
+                startActivity(intent);
             }
         });
         
@@ -207,6 +217,15 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
     
     @Override
     public void onGameCompleted(int moves) {
+        // 记录每关最佳步数
+        SharedPreferences rankingPrefs = getSharedPreferences("huarongdao_ranking", MODE_PRIVATE);
+        int bestSteps = rankingPrefs.getInt("level_" + currentLevel.getId() + "_best_steps", Integer.MAX_VALUE);
+        if (moves < bestSteps) {
+            rankingPrefs.edit()
+                .putInt("level_" + currentLevel.getId() + "_best_steps", moves)
+                .apply();
+            // 可选：弹窗提示刷新最佳成绩
+        }
         // 停止背景音乐，播放通关音效
         if (bgmPlayer != null) {
             bgmPlayer.stop();
