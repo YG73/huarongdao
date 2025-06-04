@@ -50,6 +50,9 @@ public class CodeInterpreter {
             String blockId = matcher.group(1);
             String directionStr = matcher.group(2);
             
+            // 支持字母映射为id
+            blockId = getBlockIdByLetter(blockId);
+            
             // 将方向字符串转换为Direction枚举
             Direction direction = null;
             switch (directionStr) {
@@ -81,5 +84,20 @@ public class CodeInterpreter {
         }
         
         return null;
+    }
+    
+    // 字母转id
+    private String getBlockIdByLetter(String letter) {
+        switch (letter.toUpperCase()) {
+            case "A": return "if";
+            case "B": return "else";
+            case "C": return "while";
+            case "D": return "function";
+            case "E": return "return";
+            case "F": return "var";
+            case "G": return "const";
+            case "H": return "comment";
+            default: return letter;
+        }
     }
 }    

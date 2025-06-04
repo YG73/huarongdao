@@ -127,79 +127,215 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
         Level level = new Level();
         level.setId(levelId);
         level.setTitle("第" + levelId + "关");
-        level.setDescription("移动方块使function到达出口");
+        level.setDescription("不同布局的关卡");
         level.setDifficulty(levelId);
         level.setGridWidth(4);
         level.setGridHeight(5);
-        
-        // 创建方块
+
         java.util.List<Block> blocks = new java.util.ArrayList<>();
-        
-        // 目标方块 (function)
-        Block functionBlock = new Block();
-        functionBlock.setId("function");
-        functionBlock.setType(BlockType.KEYWORD_FUNCTION);
-        functionBlock.setWidth(2);
-        functionBlock.setHeight(2);
-        functionBlock.setRow(0);
-        functionBlock.setCol(1);
-        functionBlock.setTarget(true);
-        blocks.add(functionBlock);
-        
-        // if方块
-        Block ifBlock = new Block();
-        ifBlock.setId("if");
-        ifBlock.setType(BlockType.KEYWORD_IF);
-        ifBlock.setWidth(2);
-        ifBlock.setHeight(1);
-        ifBlock.setRow(2);
-        ifBlock.setCol(0);
-        blocks.add(ifBlock);
-        
-        // else方块
-        Block elseBlock = new Block();
-        elseBlock.setId("else");
-        elseBlock.setType(BlockType.KEYWORD_ELSE);
-        elseBlock.setWidth(2);
-        elseBlock.setHeight(1);
-        elseBlock.setRow(2);
-        elseBlock.setCol(2);
-        blocks.add(elseBlock);
-        
-        // return方块
-        Block returnBlock = new Block();
-        returnBlock.setId("return");
-        returnBlock.setType(BlockType.KEYWORD_RETURN);
-        returnBlock.setWidth(1);
-        returnBlock.setHeight(2);
-        returnBlock.setRow(3);
-        returnBlock.setCol(0);
-        blocks.add(returnBlock);
-        
-        // var方块
-        Block varBlock = new Block();
-        varBlock.setId("var");
-        varBlock.setType(BlockType.VARIABLE);
-        varBlock.setWidth(1);
-        varBlock.setHeight(2);
-        varBlock.setRow(3);
-        varBlock.setCol(3);
-        blocks.add(varBlock);
-        
+
+        if (levelId == 1) {
+            // 第一关布局
+            Block functionBlock = new Block();
+            functionBlock.setId("function");
+            functionBlock.setType(BlockType.KEYWORD_FUNCTION);
+            functionBlock.setWidth(2);
+            functionBlock.setHeight(2);
+            functionBlock.setRow(0);
+            functionBlock.setCol(1);
+            functionBlock.setTarget(true);
+            blocks.add(functionBlock);
+
+            Block ifBlock = new Block();
+            ifBlock.setId("if");
+            ifBlock.setType(BlockType.KEYWORD_IF);
+            ifBlock.setWidth(2);
+            ifBlock.setHeight(1);
+            ifBlock.setRow(2);
+            ifBlock.setCol(0);
+            blocks.add(ifBlock);
+
+            Block elseBlock = new Block();
+            elseBlock.setId("else");
+            elseBlock.setType(BlockType.KEYWORD_ELSE);
+            elseBlock.setWidth(2);
+            elseBlock.setHeight(1);
+            elseBlock.setRow(2);
+            elseBlock.setCol(2);
+            blocks.add(elseBlock);
+
+            Block returnBlock = new Block();
+            returnBlock.setId("return");
+            returnBlock.setType(BlockType.KEYWORD_RETURN);
+            returnBlock.setWidth(1);
+            returnBlock.setHeight(2);
+            returnBlock.setRow(3);
+            returnBlock.setCol(0);
+            blocks.add(returnBlock);
+
+            Block varBlock = new Block();
+            varBlock.setId("var");
+            varBlock.setType(BlockType.VARIABLE);
+            varBlock.setWidth(1);
+            varBlock.setHeight(2);
+            varBlock.setRow(3);
+            varBlock.setCol(3);
+            blocks.add(varBlock);
+        } else if (levelId == 2) {
+            // 第二关布局（修正：无重叠）
+            Block functionBlock = new Block();
+            functionBlock.setId("function");
+            functionBlock.setType(BlockType.KEYWORD_FUNCTION);
+            functionBlock.setWidth(2);
+            functionBlock.setHeight(2);
+            functionBlock.setRow(0);
+            functionBlock.setCol(0);
+            functionBlock.setTarget(true);
+            blocks.add(functionBlock);
+
+            Block ifBlock = new Block();
+            ifBlock.setId("if");
+            ifBlock.setType(BlockType.KEYWORD_IF);
+            ifBlock.setWidth(2);
+            ifBlock.setHeight(1);
+            ifBlock.setRow(2);
+            ifBlock.setCol(0);
+            blocks.add(ifBlock);
+
+            Block elseBlock = new Block();
+            elseBlock.setId("else");
+            elseBlock.setType(BlockType.KEYWORD_ELSE);
+            elseBlock.setWidth(2);
+            elseBlock.setHeight(1);
+            elseBlock.setRow(2);
+            elseBlock.setCol(2);
+            blocks.add(elseBlock);
+
+            Block returnBlock = new Block();
+            returnBlock.setId("return");
+            returnBlock.setType(BlockType.KEYWORD_RETURN);
+            returnBlock.setWidth(1);
+            returnBlock.setHeight(2);
+            returnBlock.setRow(3);
+            returnBlock.setCol(0);
+            blocks.add(returnBlock);
+
+            Block varBlock = new Block();
+            varBlock.setId("var");
+            varBlock.setType(BlockType.VARIABLE);
+            varBlock.setWidth(1);
+            varBlock.setHeight(2);
+            varBlock.setRow(3);
+            varBlock.setCol(3);
+            blocks.add(varBlock);
+        } else if (levelId == 3) {
+            // 第三关布局
+            Block functionBlock = new Block();
+            functionBlock.setId("function");
+            functionBlock.setType(BlockType.KEYWORD_FUNCTION);
+            functionBlock.setWidth(2);
+            functionBlock.setHeight(2);
+            functionBlock.setRow(2);
+            functionBlock.setCol(2);
+            functionBlock.setTarget(true);
+            blocks.add(functionBlock);
+
+            Block ifBlock = new Block();
+            ifBlock.setId("if");
+            ifBlock.setType(BlockType.KEYWORD_IF);
+            ifBlock.setWidth(2);
+            ifBlock.setHeight(1);
+            ifBlock.setRow(0);
+            ifBlock.setCol(0);
+            blocks.add(ifBlock);
+
+            Block elseBlock = new Block();
+            elseBlock.setId("else");
+            elseBlock.setType(BlockType.KEYWORD_ELSE);
+            elseBlock.setWidth(2);
+            elseBlock.setHeight(1);
+            elseBlock.setRow(4);
+            elseBlock.setCol(0);
+            blocks.add(elseBlock);
+
+            Block returnBlock = new Block();
+            returnBlock.setId("return");
+            returnBlock.setType(BlockType.KEYWORD_RETURN);
+            returnBlock.setWidth(1);
+            returnBlock.setHeight(2);
+            returnBlock.setRow(0);
+            returnBlock.setCol(3);
+            blocks.add(returnBlock);
+
+            Block varBlock = new Block();
+            varBlock.setId("var");
+            varBlock.setType(BlockType.VARIABLE);
+            varBlock.setWidth(1);
+            varBlock.setHeight(2);
+            varBlock.setRow(2);
+            varBlock.setCol(0);
+            blocks.add(varBlock);
+        } else {
+            // 默认用第一关布局
+            Block functionBlock = new Block();
+            functionBlock.setId("function");
+            functionBlock.setType(BlockType.KEYWORD_FUNCTION);
+            functionBlock.setWidth(2);
+            functionBlock.setHeight(2);
+            functionBlock.setRow(0);
+            functionBlock.setCol(1);
+            functionBlock.setTarget(true);
+            blocks.add(functionBlock);
+
+            Block ifBlock = new Block();
+            ifBlock.setId("if");
+            ifBlock.setType(BlockType.KEYWORD_IF);
+            ifBlock.setWidth(2);
+            ifBlock.setHeight(1);
+            ifBlock.setRow(2);
+            ifBlock.setCol(0);
+            blocks.add(ifBlock);
+
+            Block elseBlock = new Block();
+            elseBlock.setId("else");
+            elseBlock.setType(BlockType.KEYWORD_ELSE);
+            elseBlock.setWidth(2);
+            elseBlock.setHeight(1);
+            elseBlock.setRow(2);
+            elseBlock.setCol(2);
+            blocks.add(elseBlock);
+
+            Block returnBlock = new Block();
+            returnBlock.setId("return");
+            returnBlock.setType(BlockType.KEYWORD_RETURN);
+            returnBlock.setWidth(1);
+            returnBlock.setHeight(2);
+            returnBlock.setRow(3);
+            returnBlock.setCol(0);
+            blocks.add(returnBlock);
+
+            Block varBlock = new Block();
+            varBlock.setId("var");
+            varBlock.setType(BlockType.VARIABLE);
+            varBlock.setWidth(1);
+            varBlock.setHeight(2);
+            varBlock.setRow(3);
+            varBlock.setCol(3);
+            blocks.add(varBlock);
+        }
         level.setBlocks(blocks);
         level.setSolutionSteps(12);
-        
         return level;
     }
     
     private String getSampleCode(int levelId) {
         return "// 输入移动命令\n" +
-               "// 格式: move [block_id] [direction]\n" +
+               "// 格式: move [block_letter] [direction]\n" +
                "// 示例:\n" +
-               "// move function down\n" +
-               "// move if left\n\n" +
-               "move function down\n" +
-               "move if left";
+               "// move D down\n" +
+               "// move A left\n\n" +
+               "move D down\n" +
+               "move A left";
     }
     
     private void executeCode() {
@@ -292,11 +428,45 @@ public class MainActivity extends AppCompatActivity implements HuaRongDaoView.Ga
             Toast.makeText(this, "无解或已完成！", Toast.LENGTH_SHORT).show();
         } else {
             String next = path.get(0);
+            // 替换id为字母
+            String display = convertHintToLetter(next);
             new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("提示")
-                .setMessage("下一步建议：\n" + next)
+                .setMessage("下一步建议：\n" + display)
                 .setPositiveButton("知道了", null)
                 .show();
+        }
+    }
+
+    // 将提示命令中的id映射为字母
+    private String convertHintToLetter(String hint) {
+        // 例如: move function down -> move D down
+        String[] parts = hint.split(" ");
+        if (parts.length == 3 && parts[0].equals("move")) {
+            return "移动 " + getBlockLetterById(parts[1]) + " 向 " + getDirectionCN(parts[2]);
+        }
+        return hint;
+    }
+    private String getBlockLetterById(String id) {
+        switch (id) {
+            case "if": return "A";
+            case "else": return "B";
+            case "while": return "C";
+            case "function": return "D";
+            case "return": return "E";
+            case "var": return "F";
+            case "const": return "G";
+            case "comment": return "H";
+            default: return id;
+        }
+    }
+    private String getDirectionCN(String dir) {
+        switch (dir) {
+            case "up": return "上";
+            case "down": return "下";
+            case "left": return "左";
+            case "right": return "右";
+            default: return dir;
         }
     }
 }    

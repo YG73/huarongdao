@@ -54,7 +54,6 @@ public class HuaRongDaoView extends View {
         
         textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(32);
         textPaint.setTextAlign(Paint.Align.CENTER);
     }
     
@@ -171,14 +170,14 @@ public class HuaRongDaoView extends View {
     
     private String getBlockText(BlockType type) {
         switch (type) {
-            case KEYWORD_IF: return "if";
-            case KEYWORD_ELSE: return "else";
-            case KEYWORD_WHILE: return "while";
-            case KEYWORD_FUNCTION: return "function";
-            case KEYWORD_RETURN: return "return";
-            case VARIABLE: return "var x";
-            case CONSTANT: return "const PI";
-            case COMMENT: return "// comment";
+            case KEYWORD_IF: return "A";
+            case KEYWORD_ELSE: return "B";
+            case KEYWORD_WHILE: return "C";
+            case KEYWORD_FUNCTION: return "D";
+            case KEYWORD_RETURN: return "E";
+            case VARIABLE: return "F";
+            case CONSTANT: return "G";
+            case COMMENT: return "H";
             default: return "";
         }
     }
@@ -346,6 +345,7 @@ public class HuaRongDaoView extends View {
             int gridWidth = currentLevel.getGridWidth();
             int gridHeight = currentLevel.getGridHeight();
             cellSize = Math.min((w - 2 * PADDING) / gridWidth, (h - 2 * PADDING) / gridHeight);
+            textPaint.setTextSize(cellSize * 0.5f); // 文字大小为方块高度的0.5倍
         }
     }
     
