@@ -1,19 +1,32 @@
-**参考了 https://labuladong.online/algo/intro/game/#div_huarong-road 中关于华容道游戏内容
-使用Java语言在Android Studio中开发华容道游戏的框架性任务清单，包含完整项目模块及开发流程：**
+# 《华容道》
 
+## 作者信息
 
-> ### **一、项目初始化与环境配置**  ✅
->> 1. **创建Android Studio项目**  
->>   - 选择`Empty Activity`模板，命名为`HuaRongRoad`，配置最低API级别（如Android 5.0/API 21）。  
->>   - 确保项目使用Java语言，配置`build.gradle`依赖（如AndroidX库）。  
->>
->> 2. **目录结构规划**  
->>   - `app/src/main/java/com/huarongdao`：存放代码逻辑。  
->>   - `app/src/main/res`：存放资源文件（图片、布局、字符串等）。  
->>   - `app/src/test`：单元测试（可选）。  
->>
->>（已完成，见项目结构和配置）
+- 作者：余夏蓉
+- 学号：42327021
 
+**项目概述：**
+
+本项目参考了 https://labuladong.online/algo/intro/game/#div_huarong-road 中关于华容道游戏内容，使用 Java 语言在 Android Studio 中开发了一个华容道游戏小项目。以下是项目的框架性任务清单和已完成模块：
+
+---
+
+## 技术栈与主要依赖
+
+- **开发语言:** Java
+- **开发环境:** Android Studio
+- **UI框架:** Android SDK, AndroidX Libraries (appcompat, material, activity, constraintlayout)
+- **核心算法:** BFS (广度优先搜索)
+- **主要依赖:**
+  - androidx.appcompat
+  - com.google.android.material
+  - androidx.activity
+  - androidx.constraintlayout
+  - junit (测试)
+  - androidx.test.ext.junit (测试)
+  - androidx.test.espresso.core (测试)
+
+---
 
 > ### **二、核心功能模块开发**
 >> #### **1. 游戏界面模块**
